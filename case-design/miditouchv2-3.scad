@@ -47,6 +47,15 @@ module xbee() {
   color ("royalblue") cube([40,26.5,13]);
 }
 
+module rotaryencoder() {
+ difference() {
+   translate([0,0,-.2]) cylinder(h=13.2,r=3,$fn=30);
+   translate([1.5,-3,3]) cube([2,6,11]);
+ }
+ translate([0,0,-7]) cylinder(h=7,r=3.5);
+ translate([0,0,-12]) color("lightblue") cube([15,12,10],center=true);
+}
+
 module insideparts() {
   translate ([34,0,0]) touchpad();
   translate ([-82,0,0]) touchpad();
@@ -64,6 +73,14 @@ module insideparts() {
   translate([-72,35,-9]) leddriver();
 
   translate([36,20,-14]) xbee();
+
+//  translate([77,71,-9]) rotate([270,90,0]) rotaryencoder();
+}
+
+
+module onlyrotary() {
+
+  translate([81,64,-9]) rotate([315,90,0]) rotaryencoder();
 }
 
 module clearances() {
@@ -77,15 +94,21 @@ module clearances() {
   translate([73.5,-.5,-19]) cube([10,10,20]);
   translate([-82.5,-.5,-19]) cube([10,10,20]);
 
+
+
 /*  translate([22,-8,-18]) cube([10,10,19]);
   translate([-30.5,-8,-18]) cube([10,10,19]);
 
   translate([22,-65.5,-18]) cube([10,10,19]);
   translate([-30.5,-65.5,-18]) cube([10,10,19]);
 */
+  }
 
-}
+ // ruimte voor schroefdraad van rotary (moet nog r=3.5 worden)
+ translate([88,71,-9]) rotate([315,90,0]) cylinder(r=4,h=50,$fn=30);
 
+ //ruimte voor KNOP
+ translate([87,70,-9]) rotate([270,90,0]) sphere(r=12.5);
 }
 
 module bodyshape() {
@@ -99,8 +122,17 @@ module bodyshape() {
         translate([82,65,-9]) sphere(12);
         translate([-82,65,-9]) sphere(12);
       }
-//      translate([0,-2,-30.5]) rotate([0,180,0]) 18650holder();
+ //     translate([0,-2,-30.5]) rotate([0,180,0]) 18650holder();
    }
+}
+
+module rotarybutton(){
+ difference() {
+   //cylinder(r=12,h=16);
+   sphere(r=11,$fn=50);
+   translate([0,0,-7]) rotaryencoder();
+   translate([0,0,-17]) cylinder(r=6,h=10);
+ }
 }
 
 module mainbody() {
@@ -114,7 +146,11 @@ module mainbody() {
 
 %mainbody();
 //bodyshape();
-insideparts();
+//insideparts();
+onlyrotary();
 //clearances();
 //cube(2);
 
+ translate([87,70,-9]) rotate([315,90,0]) %rotarybutton();
+
+//rotaryencoder();
