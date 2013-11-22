@@ -144,13 +144,13 @@ module mainbody() {
   }
 }
 
-%mainbody();
+//%mainbody();
 //bodyshape();
 //insideparts();
-onlyrotary();
+//onlyrotary();
 //clearances();
 //cube(2);
 
- translate([87,70,-9]) rotate([315,90,0]) %rotarybutton();
-
+// translate([87,70,-9]) rotate([315,90,0]) %rotarybutton();
+rotarybutton();
 //rotaryencoder();
